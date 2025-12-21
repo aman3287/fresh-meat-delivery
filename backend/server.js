@@ -14,8 +14,17 @@ const io = socketIo(server, {
   }
 });
 
-// Middleware
-app.use(cors());
+// Middleware - UPDATED CORS
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://fresh-meat-delivery.onrender.com',
+    'https://fresh-meat-delivery-aman.onrender.com',
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -63,6 +72,15 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
 });
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Fresh Meat Delivery API',
+    status: 'Running',
+    version: '1.0.0'
+  });
+});
+
 // Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -73,6 +91,7 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
+
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
