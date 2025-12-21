@@ -9,8 +9,15 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-    methods: ['GET', 'POST']
+    origin: [
+      'http://localhost:3000',
+      'https://fresh-meat-delivery.onrender.com',
+      'https://fresh-meat-frontend.onrender.com',
+      'https://fresh-meat-frontend-aman.onrender.com',
+      process.env.FRONTEND_URL
+    ].filter(Boolean),
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true
   }
 });
 
@@ -19,10 +26,13 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'https://fresh-meat-delivery.onrender.com',
-    'https://fresh-meat-delivery-aman.onrender.com',
+    'https://fresh-meat-frontend.onrender.com',
+    'https://fresh-meat-frontend-aman.onrender.com',
     process.env.FRONTEND_URL
   ].filter(Boolean),
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
