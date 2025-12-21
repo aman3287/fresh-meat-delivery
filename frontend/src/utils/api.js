@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || 'https://fresh-meat-delivery.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -47,7 +47,8 @@ export const orderAPI = {
   getById: (id) => api.get(`/orders/${id}`),
   updateStatus: (id, data) => api.put(`/orders/${id}/status`, data),
   cancel: (id, reason) => api.put(`/orders/${id}/cancel`, { reason }),
-  rate: (id, rating) => api.put(`/orders/${id}/rate`, rating)
+  rate: (id, rating) => api.put(`/orders/${id}/rate`, rating),
+  verifyPayment: (orderId, paymentData) => api.post(`/orders/${orderId}/verify-payment`, paymentData)
 };
 
 // User APIs
