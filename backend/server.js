@@ -14,6 +14,7 @@ const io = socketIo(server, {
       'https://fresh-meat-delivery.onrender.com',
       'https://fresh-meat-frontend.onrender.com',
       'https://fresh-meat-frontend-aman.onrender.com',
+      'https://fresh-nonveg-order.onrender.com',
       process.env.FRONTEND_URL
     ].filter(Boolean),
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -28,6 +29,7 @@ app.use(cors({
     'https://fresh-meat-delivery.onrender.com',
     'https://fresh-meat-frontend.onrender.com',
     'https://fresh-meat-frontend-aman.onrender.com',
+    'https://fresh-nonveg-order.onrender.com',
     process.env.FRONTEND_URL
   ].filter(Boolean),
   credentials: true,
