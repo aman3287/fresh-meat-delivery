@@ -1,12 +1,11 @@
 import React from 'react';
-import { HashRouter as Router } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
-
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -21,19 +20,19 @@ import DeliveryDashboard from './pages/DeliveryDashboard';
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { isAuthenticated, user, loading } = useAuth();
-
+  
   if (loading) {
     return <div className="loading"><div className="spinner"></div></div>;
   }
-
+  
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
-
+  
   if (allowedRoles && !allowedRoles.includes(user?.role)) {
     return <Navigate to="/" />;
   }
-
+  
   return children;
 };
 
